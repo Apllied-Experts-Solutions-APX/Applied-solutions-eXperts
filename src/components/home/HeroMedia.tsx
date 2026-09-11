@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { assetPath } from "@/lib/assets";
 import { cx } from "@/lib/utils";
 import { homeHero } from "@/data/homepage";
 import styles from "./Hero.module.css";
@@ -90,7 +91,7 @@ export function HeroMedia() {
             index === active && styles.videoActive,
             index === incoming && styles.videoIncoming,
           )}
-          src={src}
+          src={assetPath(src)}
           muted
           playsInline
           preload={index === 0 ? "auto" : "metadata"}

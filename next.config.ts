@@ -1,23 +1,25 @@
-/*
 import type { NextConfig } from "next";
 
+/**
+ * Deployment-aware base path.
+ *
+ * - Local / Vercel / Render (root host): no basePath
+ * - GitHub Pages project site: set GITHUB_PAGES=true in the deploy workflow
+ */
+const isGithubPages = process.env.GITHUB_PAGES === "true";
+const basePath = isGithubPages ? "/Applied-solutions-eXperts" : "";
+
 const nextConfig: NextConfig = {
-   config options here 
   reactCompiler: true,
-};
-
-export default nextConfig;
-*/
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  reactCompiler: true,
-
   output: "export",
-  basePath: "/Applied-solutions-eXperts",
-
+  ...(basePath ? { basePath } : {}),
   images: {
+    // Required for `output: "export"` (no Image Optimization API on static hosts).
     unoptimized: true,
+  },
+  env: {
+    // Exposed to client/server code so public asset URLs can include basePath.
+    NEXT_PUBLIC_BASE_PATH: basePath,
   },
 };
 

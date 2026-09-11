@@ -3,6 +3,7 @@ import { Source_Sans_3 } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { assetUrl } from "@/lib/assets";
 import { themeBootScript } from "@/lib/theme";
 import "./globals.css";
 
@@ -21,9 +22,19 @@ export const metadata: Metadata = {
   applicationName: siteConfig.abbreviation,
 };
 
+const logoAssetStyles = {
+  ["--logo-light" as string]: assetUrl("/logos/light_website_logo.png"),
+  ["--logo-dark" as string]: assetUrl("/logos/websitedarklogo.png"),
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={sourceSans.variable} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={sourceSans.variable}
+      style={logoAssetStyles}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
       </head>
