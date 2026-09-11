@@ -19,6 +19,7 @@ export function PageCta({
   return (
     <Section ariaLabelledBy="page-cta-heading" tone="inverse" className={styles.cta}>
       <Container narrow className={styles.inner}>
+        <span className={`accent-rule ${styles.rule}`} aria-hidden="true" />
         <Heading as="h2" id="page-cta-heading" className={styles.title}>
           {title}
         </Heading>

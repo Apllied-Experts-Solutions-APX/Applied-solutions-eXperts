@@ -1,20 +1,57 @@
 .hero {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
   padding-block: calc(var(--header-height) * 0.35 + var(--space-7)) var(--space-8);
   background: var(--color-bg);
 }
 
+.hero::after {
+  content: "";
+  position: absolute;
+  right: -8%;
+  top: 10%;
+  width: min(22rem, 50vw);
+  height: min(22rem, 50vw);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    circle,
+    rgba(var(--color-blue-rgb), 0.08),
+    transparent 68%
+  );
+}
+
 .subtle {
-  background: var(--color-bg-subtle);
+  background:
+    radial-gradient(
+      ellipse 60% 50% at 100% 0%,
+      rgba(var(--color-blue-rgb), 0.07),
+      transparent 55%
+    ),
+    var(--color-bg-subtle);
 }
 
 .inverse {
   background:
     radial-gradient(circle at 88% 12%, rgba(var(--color-blue-rgb), 0.38), transparent 42%),
+    radial-gradient(circle at 8% 90%, rgba(var(--color-gold-rgb), 0.14), transparent 36%),
     var(--color-navy);
   color: var(--color-text-on-navy);
 }
 
+.inverse::after {
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.06),
+    transparent 68%
+  );
+}
+
 .inner {
+  position: relative;
+  z-index: 1;
   display: grid;
   gap: var(--space-7);
 }

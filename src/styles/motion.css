@@ -3,9 +3,11 @@
 :root {
   --motion-fade-from: 0;
   --motion-fade-to: 1;
-  --motion-reveal-y: 0.85rem;
-  --motion-reveal-duration: 0.65s;
-  --stagger-step: 80ms;
+  --motion-reveal-y: 1.25rem;
+  --motion-reveal-duration: 0.75s;
+  --stagger-step: 85ms;
+  --motion-card-lift: -0.35rem;
+  --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Interactive feedback helpers */
@@ -16,11 +18,12 @@
 .motion-lift {
   transition:
     transform var(--transition-base),
-    box-shadow var(--transition-base);
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
 }
 
 .motion-lift:hover {
-  transform: translateY(-0.2rem);
+  transform: translateY(var(--motion-card-lift));
   box-shadow: var(--shadow-md);
 }
 
@@ -38,6 +41,46 @@
 
 .motion-opacity-hover:hover {
   opacity: 0.85;
+}
+
+/* Card interactive surface — shared hover language */
+.motion-card {
+  position: relative;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base),
+    background-color var(--transition-base);
+}
+
+.motion-card:hover {
+  transform: translateY(var(--motion-card-lift));
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-strong);
+}
+
+.motion-card:focus-within {
+  border-color: var(--color-border-strong);
+}
+
+/* Subtle image/media reveal scale on entrance */
+.motion-media-reveal {
+  overflow: hidden;
+}
+
+.motion-media-reveal > * {
+  transform: scale(1.045);
+  transition: transform calc(var(--motion-reveal-duration) + 0.2s) var(--motion-ease-out);
+}
+
+.reveal-in .motion-media-reveal > *,
+.stagger-in .motion-media-reveal > * {
+  transform: scale(1);
+}
+
+/* Soft parallax layer — decorative only; disabled on small screens */
+.motion-parallax {
+  will-change: transform;
 }
 
 @keyframes apx-reveal-up {
@@ -79,6 +122,51 @@
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes apx-hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.4rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes apx-hero-mark {
+  from {
+    opacity: 0;
+    transform: translateY(1.6rem);
+    letter-spacing: 0.14em;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 0.06em;
+  }
+}
+
+@keyframes apx-rule-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes apx-scroll-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0.4rem);
   }
 }
 
@@ -145,9 +233,46 @@
   animation-delay: calc(var(--stagger-step) * 8);
 }
 
+/* Accent rule draws in when its reveal parent enters */
+.reveal .accent-rule,
+.stagger .accent-rule {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.reveal-in .accent-rule,
+.stagger-in .accent-rule {
+  animation: apx-rule-draw 0.7s var(--motion-ease-out) 120ms both;
+}
+
+/* Hero staggered entrance (load-time, once) */
+.hero-enter > * {
+  opacity: 0;
+  animation: apx-hero-rise 0.9s var(--motion-ease-out) both;
+}
+
+.hero-enter > *:nth-child(1) {
+  animation-name: apx-hero-mark;
+  animation-duration: 1.05s;
+  animation-delay: 80ms;
+}
+.hero-enter > *:nth-child(2) {
+  animation-delay: 200ms;
+}
+.hero-enter > *:nth-child(3) {
+  animation-delay: 320ms;
+}
+.hero-enter > *:nth-child(4) {
+  animation-delay: 460ms;
+}
+.hero-enter > *:nth-child(5) {
+  animation-delay: 600ms;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .motion-lift:hover,
-  .motion-scale:hover {
+  .motion-scale:hover,
+  .motion-card:hover {
     transform: none;
   }
 
@@ -156,13 +281,38 @@
   .page-enter,
   .scale-in,
   .reveal-in,
-  .stagger-in > * {
+  .stagger-in > *,
+  .hero-enter > *,
+  .reveal-in .accent-rule,
+  .stagger-in .accent-rule {
     animation: none;
   }
 
   .reveal,
-  .stagger > * {
+  .stagger > *,
+  .hero-enter > * {
     opacity: 1;
+    transform: none;
+  }
+
+  .reveal .accent-rule,
+  .stagger .accent-rule {
+    transform: scaleX(1);
+  }
+
+  .motion-media-reveal > * {
+    transform: none;
+    transition: none;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .motion-parallax {
+    transform: none !important;
+  }
+
+  .motion-card:hover,
+  .motion-lift:hover {
     transform: none;
   }
 }

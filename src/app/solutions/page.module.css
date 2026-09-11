@@ -7,21 +7,60 @@
 }
 
 .group {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-3);
   padding: var(--space-6);
-  background: var(--color-bg-subtle);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(var(--color-navy-rgb), 0.04),
+      transparent 50%
+    ),
+    var(--color-bg-subtle);
   border-inline-start: 3px solid var(--color-gold);
+  overflow: hidden;
   transition:
     transform var(--transition-base),
-    box-shadow var(--transition-base);
+    box-shadow var(--transition-base),
+    border-color var(--transition-fast),
+    background-color var(--transition-base);
+}
+
+.group::after {
+  content: "";
+  position: absolute;
+  right: -15%;
+  bottom: -25%;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(var(--color-blue-rgb), 0.09),
+    transparent 70%
+  );
+  pointer-events: none;
+  transition: transform var(--transition-base);
 }
 
 .group:hover {
-  transform: translateY(-0.15rem);
+  transform: translateY(-0.22rem);
   box-shadow: var(--shadow-md);
+  border-inline-start-color: var(--color-blue);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(var(--color-blue-rgb), 0.05),
+      transparent 50%
+    ),
+    var(--color-surface);
+}
+
+.group:hover::after {
+  transform: translate(-0.5rem, -0.35rem);
 }
 
 .groupTitle {
@@ -56,8 +95,18 @@
   }
 }
 
+@media (max-width: 47.99rem) {
+  .group:hover {
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .group:hover {
+    transform: none;
+  }
+
+  .group:hover::after {
     transform: none;
   }
 }

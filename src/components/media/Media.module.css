@@ -21,6 +21,11 @@
   transition: transform 700ms var(--ease-standard);
 }
 
+.media:hover .placeholder,
+:global(.media:hover) .placeholder {
+  transform: scale(1.04);
+}
+
 .placeholderLabel {
   font-size: var(--text-caption-size);
   line-height: var(--text-caption-line);
@@ -33,5 +38,10 @@
 @media (prefers-reduced-motion: reduce) {
   .placeholder {
     transition: none;
+  }
+
+  .media:hover .placeholder,
+  :global(.media:hover) .placeholder {
+    transform: none;
   }
 }

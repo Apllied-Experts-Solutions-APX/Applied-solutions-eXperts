@@ -24,7 +24,7 @@
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transform: translateX(0);
+  transform: translateX(0) scale(1.02);
   transition:
     opacity var(--duration-slow) var(--ease-standard),
     transform 900ms var(--ease-standard);
@@ -34,6 +34,7 @@
 .videoActive {
   opacity: 1;
   z-index: 1;
+  transform: scale(1);
 }
 
 .videoIncoming {
@@ -56,17 +57,22 @@
   inset: 0;
   z-index: 3;
   background:
+    radial-gradient(
+      ellipse 50% 40% at 15% 85%,
+      rgba(var(--color-gold-rgb), 0.12),
+      transparent 55%
+    ),
     linear-gradient(
       105deg,
-      rgba(var(--color-navy-rgb), 0.88) 0%,
-      rgba(var(--color-navy-rgb), 0.72) 42%,
-      rgba(var(--color-navy-rgb), 0.42) 100%
+      rgba(var(--color-navy-rgb), 0.9) 0%,
+      rgba(var(--color-navy-rgb), 0.74) 42%,
+      rgba(var(--color-navy-rgb), 0.4) 100%
     ),
     linear-gradient(
       to top,
-      rgba(var(--color-navy-rgb), 0.75) 0%,
-      rgba(var(--color-navy-rgb), 0.2) 40%,
-      transparent 70%
+      rgba(var(--color-navy-rgb), 0.8) 0%,
+      rgba(var(--color-navy-rgb), 0.22) 38%,
+      transparent 68%
     );
   pointer-events: none;
 }
@@ -82,11 +88,30 @@
 }
 
 .brandMark {
+  position: relative;
   font-size: clamp(2.75rem, 8vw, 4.5rem);
   font-weight: 700;
   letter-spacing: 0.06em;
   line-height: 1;
   color: var(--color-text-on-navy);
+  padding-bottom: var(--space-3);
+}
+
+.brandMark::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 2.75rem;
+  height: 0.2rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--color-gold),
+    rgba(var(--color-blue-rgb), 0.7)
+  );
+  transform-origin: left center;
+  animation: apx-rule-draw 0.85s var(--motion-ease-out) 0.55s both;
 }
 
 .eyebrow {
@@ -112,6 +137,66 @@
   margin-top: var(--space-2);
 }
 
+/* Soft angled blend into the next section */
+.heroFade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  z-index: 4;
+  height: clamp(4.5rem, 12vw, 7rem);
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(var(--color-navy-rgb), 0.15) 35%,
+    var(--color-bg) 100%
+  );
+  clip-path: polygon(0 42%, 100% 0, 100% 100%, 0 100%);
+}
+
+.scrollCue {
+  position: absolute;
+  left: 50%;
+  bottom: 2.25rem;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1.5rem;
+  height: 2.6rem;
+  transform: translateX(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.scrollCue:hover {
+  border-color: rgba(var(--color-gold-rgb), 0.85);
+  box-shadow: 0 0 0 1px rgba(var(--color-gold-rgb), 0.2);
+}
+
+.scrollCue:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring-inverse);
+}
+
+.scrollCueLine {
+  display: block;
+  width: 0.2rem;
+  height: 0.55rem;
+  margin-top: 0.45rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.95),
+    var(--color-gold)
+  );
+  animation: apx-scroll-pulse 1.8s var(--ease-standard) infinite;
+}
+
 @keyframes hero-curtain {
   from {
     clip-path: inset(0 0 0 100%);
@@ -131,6 +216,10 @@
   .content {
     max-width: 44rem;
   }
+
+  .scrollCue {
+    bottom: 2.75rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -138,5 +227,19 @@
   .videoIncoming {
     transition: none;
     animation: none;
+    transform: none;
+  }
+
+  .brandMark::after {
+    animation: none;
+  }
+
+  .scrollCueLine {
+    animation: none;
+  }
+
+  .heroFade {
+    height: 3.5rem;
+    clip-path: none;
   }
 }

@@ -1,5 +1,5 @@
 import { siteConfig } from "@/config/site";
-import { homeHero } from "@/data/homepage";
+import { homeEcosystem, homeHero } from "@/data/homepage";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { HeroMedia } from "@/components/home/HeroMedia";
@@ -13,7 +13,7 @@ export function Hero() {
     <section className={styles.hero} aria-labelledby="home-heading">
       <HeroMedia />
       <div className={styles.overlay} aria-hidden="true" />
-      <Container className={styles.content}>
+      <Container className={`${styles.content} hero-enter`}>
         <p className={styles.brandMark}>{siteConfig.abbreviation}</p>
         <p className={`text-caption ${styles.eyebrow}`}>{siteConfig.tagline}</p>
         <h1 id="home-heading" className={`display ${styles.headline}`}>
@@ -29,6 +29,11 @@ export function Hero() {
           </Button>
         </div>
       </Container>
+      <a href={`#${homeEcosystem.id}`} className={styles.scrollCue}>
+        <span className="visually-hidden">Scroll to explore</span>
+        <span className={styles.scrollCueLine} aria-hidden="true" />
+      </a>
+      <div className={styles.heroFade} aria-hidden="true" />
     </section>
   );
 }

@@ -1,4 +1,4 @@
-/* Homepage section composition — Phase 03 */
+/* Homepage section composition — visual / motion layer */
 
 .sectionIntro {
   display: flex;
@@ -30,22 +30,69 @@
   max-width: 32rem;
 }
 
-/* Ecosystem */
+/* Ecosystem — connected interactive pillars */
+.ecosystemSection {
+  margin-top: -2.5rem;
+  padding-top: calc(var(--section-space) + 1.5rem);
+}
+
 .ecosystemList {
   display: grid;
-  gap: var(--space-6);
+  gap: var(--space-5);
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .ecosystemItem {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-3);
-  padding-block: var(--space-5);
-  border-top: 1px solid var(--color-border);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(
+      165deg,
+      rgba(var(--color-blue-rgb), 0.04),
+      transparent 42%
+    ),
+    var(--color-surface);
+  overflow: hidden;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.ecosystemAccent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--color-gold),
+    rgba(var(--color-blue-rgb), 0.65)
+  );
+  transform: scaleX(0.35);
+  transform-origin: left;
+  transition: transform var(--transition-base);
+}
+
+.ecosystemItem:hover,
+.ecosystemItem:focus-within {
+  transform: translateY(-0.28rem);
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.ecosystemItem:hover .ecosystemAccent,
+.ecosystemItem:focus-within .ecosystemAccent {
+  transform: scaleX(1);
 }
 
 .ecosystemName {
@@ -83,11 +130,38 @@
 }
 
 .audienceItem {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
   padding: var(--space-5) 0;
   border-bottom: 1px solid var(--color-border);
+  transition:
+    transform var(--transition-base),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base),
+    background-color var(--transition-base);
+}
+
+.audienceItem::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: var(--space-5);
+  bottom: var(--space-5);
+  width: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to bottom,
+    var(--color-gold),
+    rgba(var(--color-blue-rgb), 0.5)
+  );
+  opacity: 0;
+  transform: scaleY(0.4);
+  transform-origin: top;
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-base);
 }
 
 .audienceItem:last-child {
@@ -100,7 +174,90 @@
   font-weight: var(--text-h3-weight);
 }
 
-/* Division features */
+/* Division features — distinct atmospheres, same APX identity */
+.labsSection {
+  overflow: clip;
+}
+
+.labsSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    radial-gradient(circle at 12% 80%, rgba(var(--color-gold-rgb), 0.16), transparent 28%),
+    radial-gradient(circle at 88% 18%, rgba(var(--color-blue-rgb), 0.08), transparent 32%),
+    linear-gradient(rgba(var(--color-navy-rgb), 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--color-navy-rgb), 0.04) 1px, transparent 1px);
+  background-size: auto, auto, 56px 56px, 56px 56px;
+  mask-image: linear-gradient(90deg, transparent 0%, black 35%, black 100%);
+}
+
+.labsSection > *,
+.solutionsSection > *,
+.digitalSection > * {
+  position: relative;
+  z-index: 1;
+}
+
+.digitalSection {
+  background:
+    radial-gradient(
+      ellipse 70% 55% at 0% 50%,
+      rgba(var(--color-blue-rgb), 0.11),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 40% 40% at 100% 80%,
+      rgba(var(--color-navy-rgb), 0.05),
+      transparent 50%
+    ),
+    var(--color-bg-subtle);
+}
+
+.digitalSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      115deg,
+      transparent 0%,
+      rgba(var(--color-blue-rgb), 0.04) 40%,
+      transparent 70%
+    );
+  opacity: 0.9;
+}
+
+.solutionsSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(var(--color-navy-rgb), 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--color-navy-rgb), 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 65% 55% at 80% 20%, black 10%, transparent 70%);
+  opacity: 0.85;
+}
+
+.solutionsSection::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 90% 20%, rgba(var(--color-navy-rgb), 0.07), transparent 35%),
+    radial-gradient(circle at 10% 90%, rgba(var(--color-blue-rgb), 0.06), transparent 30%);
+}
+
 .featureCopy {
   display: flex;
   flex-direction: column;
@@ -126,6 +283,23 @@
   border-radius: var(--radius-sm);
   font-size: var(--text-small-size);
   color: var(--color-text);
+  transition:
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.themeList li:hover {
+  border-color: rgba(var(--color-gold-rgb), 0.55);
+  background: rgba(var(--color-gold-rgb), 0.08);
+  transform: translateY(-1px);
+}
+
+.capabilityList li:hover {
+  border-color: rgba(var(--color-blue-rgb), 0.45);
+  background: rgba(var(--color-blue-rgb), 0.07);
+  transform: translateY(-1px);
 }
 
 .futureNote {
@@ -164,12 +338,60 @@
 }
 
 .solutionBlock {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
   padding: var(--space-5);
   border-inline-start: 3px solid var(--color-gold);
-  background: var(--color-bg-subtle);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(var(--color-navy-rgb), 0.03),
+      transparent 50%
+    ),
+    var(--color-bg-subtle);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  overflow: hidden;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    background-color var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.solutionBlock::after {
+  content: "";
+  position: absolute;
+  right: -20%;
+  top: -30%;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(var(--color-blue-rgb), 0.08),
+    transparent 70%
+  );
+  pointer-events: none;
+  transition: transform var(--transition-base);
+}
+
+.solutionBlock:hover {
+  transform: translateY(-0.22rem);
+  box-shadow: var(--shadow-sm);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(var(--color-blue-rgb), 0.05),
+      transparent 50%
+    ),
+    var(--color-surface);
+  border-inline-start-color: var(--color-blue);
+}
+
+.solutionBlock:hover::after {
+  transform: translate(-0.4rem, 0.35rem);
 }
 
 .solutionTitle {
@@ -194,6 +416,7 @@
   gap: var(--space-4);
   padding-bottom: var(--space-4);
   border-bottom: 1px solid var(--color-border);
+  transition: transform var(--transition-base);
 }
 
 .workIndex {
@@ -201,6 +424,7 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--color-gold);
+  transition: color var(--transition-fast);
 }
 
 .workStepLabel {
@@ -250,6 +474,11 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  transition: transform var(--transition-base);
+}
+
+.workCard:hover {
+  transform: translateY(-0.2rem);
 }
 
 .workCardLabel {
@@ -274,8 +503,21 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  padding-top: var(--space-4);
+  padding: var(--space-5) var(--space-4) var(--space-4);
   border-top: 2px solid var(--color-gold);
+  background: linear-gradient(
+    180deg,
+    rgba(var(--color-gold-rgb), 0.06),
+    transparent 55%
+  );
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.whyItem:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: var(--shadow-xs);
 }
 
 .whyTitle {
@@ -297,6 +539,11 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  transition: transform var(--transition-base);
+}
+
+.insightSlot:hover {
+  transform: translateY(-0.2rem);
 }
 
 .insightKind {
@@ -305,17 +552,43 @@
 
 /* Final CTA */
 .finalCta {
+  position: relative;
+  overflow: hidden;
   background:
     radial-gradient(circle at 85% 20%, rgba(var(--color-blue-rgb), 0.35), transparent 40%),
+    radial-gradient(circle at 10% 90%, rgba(var(--color-gold-rgb), 0.18), transparent 35%),
     var(--color-navy);
 }
 
+.finalCta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 60% 50% at 70% 30%, black, transparent);
+  opacity: 0.6;
+}
+
 .finalInner {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-4);
   text-align: left;
+}
+
+.finalRule {
+  background: linear-gradient(
+    90deg,
+    var(--color-gold),
+    rgba(255, 255, 255, 0.45)
+  );
 }
 
 .finalTitle {
@@ -332,19 +605,12 @@
 @media (min-width: 48rem) {
   .ecosystemList {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-6);
+    gap: var(--space-5);
   }
 
   .ecosystemItem {
-    border-top: none;
-    padding-block: 0;
-    padding-inline-end: var(--space-5);
-    border-inline-end: 1px solid var(--color-border);
-  }
-
-  .ecosystemItem:last-child {
-    border-inline-end: none;
-    padding-inline-end: 0;
+    min-height: 100%;
+    padding: var(--space-6) var(--space-5);
   }
 
   .audienceGrid {
@@ -354,13 +620,34 @@
 
   .audienceItem {
     padding: var(--space-5);
+    padding-inline-start: calc(var(--space-5) + 0.35rem);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     background: var(--color-surface);
   }
 
+  .audienceItem::before {
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    opacity: 0.55;
+    transform: scaleY(1);
+  }
+
   .audienceItem:last-child {
     border-bottom: 1px solid var(--color-border);
+  }
+
+  .audienceItem:hover {
+    transform: translateY(-0.22rem);
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .audienceItem:hover::before {
+    opacity: 1;
   }
 
   .solutionsGrid {
@@ -376,7 +663,18 @@
     flex-direction: column;
     gap: var(--space-2);
     border-bottom: 0;
-    padding-bottom: 0;
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+  }
+
+  .workStep:hover {
+    transform: translateY(-0.15rem);
+  }
+
+  .workStep:hover .workIndex {
+    color: var(--color-blue);
   }
 
   .whyGrid {
@@ -415,5 +713,47 @@
 @media (min-width: 80rem) {
   .sectionIntro {
     margin-bottom: var(--space-8);
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .ecosystemItem:hover,
+  .solutionBlock:hover,
+  .workCard:hover,
+  .insightSlot:hover,
+  .whyItem:hover,
+  .themeList li:hover,
+  .capabilityList li:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ecosystemItem:hover,
+  .ecosystemItem:focus-within,
+  .solutionBlock:hover,
+  .workCard:hover,
+  .insightSlot:hover,
+  .whyItem:hover,
+  .audienceItem:hover,
+  .workStep:hover,
+  .themeList li:hover,
+  .capabilityList li:hover {
+    transform: none;
+  }
+
+  .ecosystemAccent,
+  .audienceItem::before,
+  .solutionBlock:hover::after {
+    transform: none;
+  }
+
+  .ecosystemAccent {
+    transform: scaleX(1);
+  }
+
+  .audienceItem::before {
+    opacity: 1;
+    transform: scaleY(1);
   }
 }

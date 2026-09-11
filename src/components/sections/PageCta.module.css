@@ -1,14 +1,40 @@
 .cta {
+  position: relative;
+  overflow: hidden;
   background:
     radial-gradient(circle at 85% 20%, rgba(var(--color-blue-rgb), 0.35), transparent 40%),
+    radial-gradient(circle at 12% 88%, rgba(var(--color-gold-rgb), 0.16), transparent 34%),
     var(--color-navy);
 }
 
+.cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 60% 50% at 70% 30%, black, transparent);
+  opacity: 0.55;
+}
+
 .inner {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-4);
+}
+
+.rule {
+  background: linear-gradient(
+    90deg,
+    var(--color-gold),
+    rgba(255, 255, 255, 0.4)
+  );
 }
 
 .title {

@@ -22,8 +22,10 @@
 
 /* Full-width section shell */
 .section {
+  position: relative;
   width: 100%;
   padding-block: var(--section-space);
+  overflow: clip;
 }
 
 .section--tight {
@@ -35,12 +37,74 @@
 }
 
 .section--subtle {
-  background: var(--color-bg-subtle);
+  background:
+    radial-gradient(
+      ellipse 80% 60% at 100% 0%,
+      rgba(var(--color-blue-rgb), 0.06),
+      transparent 55%
+    ),
+    var(--color-bg-subtle);
 }
 
 .section--inverse {
   background: var(--color-surface-inverse);
   color: var(--color-text-on-navy);
+}
+
+/* Layered atmosphere — decorative, content stays above */
+.section--atmosphere::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(var(--color-navy-rgb), 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--color-navy-rgb), 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 75%);
+  opacity: 0.7;
+}
+
+.section--atmosphere > * {
+  position: relative;
+  z-index: 1;
+}
+
+.section--glow::after {
+  content: "";
+  position: absolute;
+  width: min(28rem, 70vw);
+  height: min(28rem, 70vw);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    circle,
+    rgba(var(--color-blue-rgb), 0.1),
+    transparent 70%
+  );
+  top: -12%;
+  right: -8%;
+}
+
+.section--glow > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .section--atmosphere::before {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  }
+}
+
+[data-theme="dark"] .section--atmosphere::before {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
 }
 
 .section--inverse :is(h1, h2, h3, .text-h1, .text-h2, .text-h3, .display, .text-display, p, .text-body, .text-lead) {
@@ -167,8 +231,55 @@
 /* Directional accent — subtle compass-inspired cue (not logo decoration) */
 .accent-rule {
   display: block;
-  width: 2.5rem;
+  width: 2.75rem;
   height: 0.1875rem;
-  background: var(--color-gold);
+  background: linear-gradient(
+    90deg,
+    var(--color-gold) 0%,
+    rgba(var(--color-blue-rgb), 0.85) 100%
+  );
   border: 0;
+  border-radius: 999px;
+}
+
+/* Soft section bridge — overlaps into the next surface */
+.section-bridge {
+  position: relative;
+}
+
+.section-bridge::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  height: clamp(2.5rem, 6vw, 4.5rem);
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--color-bg-subtle) 100%
+  );
+  clip-path: polygon(0 55%, 100% 0, 100% 100%, 0 100%);
+}
+
+.section-bridge--curve::after {
+  clip-path: ellipse(75% 100% at 50% 100%);
+  background: var(--color-bg-subtle);
+  height: clamp(2rem, 5vw, 3.5rem);
+  opacity: 0.95;
+}
+
+.section-bridge--navy::after {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--color-navy) 100%
+  );
+  clip-path: polygon(0 35%, 100% 0, 100% 100%, 0 100%);
+}
+
+.section-bridge--to-default::after {
+  background: linear-gradient(to bottom, transparent 0%, var(--color-bg) 100%);
 }

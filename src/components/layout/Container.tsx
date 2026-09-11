@@ -43,6 +43,10 @@ type SectionProps = {
   tone?: "default" | "subtle" | "inverse";
   /** Vertical rhythm */
   spacing?: "default" | "tight" | "flush";
+  /** Decorative depth layer (grid / soft glow) */
+  atmosphere?: boolean | "grid" | "glow";
+  /** Intersection entrance for the whole section (disable when children use Stagger) */
+  reveal?: boolean;
 };
 
 export function Section({
@@ -52,7 +56,16 @@ export function Section({
   id,
   tone = "default",
   spacing = "default",
+  atmosphere = false,
+  reveal = true,
 }: SectionProps) {
+  const atmosphereClass =
+    atmosphere === true || atmosphere === "grid"
+      ? "section--atmosphere"
+      : atmosphere === "glow"
+        ? "section--glow"
+        : undefined;
+
   return (
     <section
       id={id}
@@ -62,12 +75,13 @@ export function Section({
         spacing === "flush" && "section--flush",
         tone === "subtle" && "section--subtle",
         tone === "inverse" && "section--inverse",
+        atmosphereClass,
         styles.section,
         className,
       )}
       aria-labelledby={ariaLabelledBy}
     >
-      <Reveal>{children}</Reveal>
+      {reveal ? <Reveal>{children}</Reveal> : children}
     </section>
   );
 }
