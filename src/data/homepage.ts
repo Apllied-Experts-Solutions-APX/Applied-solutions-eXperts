@@ -13,7 +13,7 @@ export const homeHero = {
   /** Owner-supplied hero background videos — transition when both are available. 
   videos: ["/videos/APX1.mp4", "/videos/APX2.mp4"] as const,*/
   videos: [
-  "/Applied-solutions-eXperts/videos/APX1.mp4",
+  
   "/Applied-solutions-eXperts/videos/APX2.mp4",
 ] as const,
 } as const;
