@@ -1,0 +1,4 @@
+/* Module hook for form controls — base styles live in forms.css */
+.control {
+  /* reserved for component-level overrides */
+}

@@ -1,0 +1,119 @@
+.introFlush {
+  margin-bottom: 0;
+}
+
+.statement {
+  font-size: var(--text-lead-size);
+  line-height: var(--text-lead-line);
+  max-width: 32rem;
+}
+
+.focus {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-blue);
+}
+
+.verbGrid,
+.ecosystem,
+.audienceGrid,
+.whyGrid {
+  display: grid;
+  gap: var(--space-5);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.verbItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 2px solid var(--color-gold);
+}
+
+.verbTitle,
+.audienceTitle,
+.whyTitle {
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-line);
+  font-weight: var(--text-h3-weight);
+}
+
+.verbTitle {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.audienceItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.audienceItem:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: var(--shadow-sm);
+}
+
+.vision {
+  max-width: 42rem;
+}
+
+.tagline {
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-line);
+  font-weight: var(--text-h2-weight);
+  text-wrap: balance;
+}
+
+.whyItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+@media (min-width: 48rem) {
+  .verbGrid,
+  .whyGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-7);
+  }
+
+  .ecosystem,
+  .audienceGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .verbGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .ecosystem {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .audienceGrid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .whyGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .audienceItem:hover {
+    transform: none;
+  }
+}

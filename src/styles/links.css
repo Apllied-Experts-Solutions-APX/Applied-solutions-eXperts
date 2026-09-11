@@ -1,0 +1,95 @@
+/* Consistent text link styles */
+
+a.text-link,
+.text-link {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition:
+    color var(--transition-fast),
+    text-decoration-color var(--transition-fast);
+}
+
+a.text-link:hover,
+.text-link:hover {
+  color: var(--color-link-hover);
+  text-decoration-thickness: 2px;
+}
+
+a.text-link:focus-visible,
+.text-link:focus-visible {
+  outline: none;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--focus-ring);
+}
+
+a.text-link:visited,
+.text-link:visited {
+  color: var(--color-link-visited);
+}
+
+/* Quiet inline link — colour shift, no underline by default */
+a.link-quiet,
+.link-quiet {
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a.link-quiet:hover,
+.link-quiet:hover {
+  color: var(--color-link);
+}
+
+a.link-quiet:focus-visible,
+.link-quiet:focus-visible {
+  outline: none;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--focus-ring);
+}
+
+/* Directional cue for “learn more” style links */
+a.link-forward,
+.link-forward {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-link);
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    color var(--transition-fast),
+    gap var(--transition-fast);
+}
+
+a.link-forward::after,
+.link-forward::after {
+  content: "→";
+  transition: transform var(--transition-fast);
+}
+
+a.link-forward:hover,
+.link-forward:hover {
+  color: var(--color-link-hover);
+  gap: var(--space-3);
+}
+
+a.link-forward:hover::after,
+.link-forward:hover::after {
+  transform: translateX(0.125rem);
+}
+
+a.link-forward:focus-visible,
+.link-forward:focus-visible {
+  outline: none;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a.link-forward:hover::after,
+  .link-forward:hover::after {
+    transform: none;
+  }
+}

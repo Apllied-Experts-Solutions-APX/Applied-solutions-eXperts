@@ -1,0 +1,168 @@
+/* Restrained motion system — no animation libraries */
+
+:root {
+  --motion-fade-from: 0;
+  --motion-fade-to: 1;
+  --motion-reveal-y: 0.85rem;
+  --motion-reveal-duration: 0.65s;
+  --stagger-step: 80ms;
+}
+
+/* Interactive feedback helpers */
+.motion-fade {
+  transition: opacity var(--transition-base);
+}
+
+.motion-lift {
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.motion-lift:hover {
+  transform: translateY(-0.2rem);
+  box-shadow: var(--shadow-md);
+}
+
+.motion-scale {
+  transition: transform var(--transition-fast);
+}
+
+.motion-scale:hover {
+  transform: scale(var(--motion-scale));
+}
+
+.motion-opacity-hover {
+  transition: opacity var(--transition-fast);
+}
+
+.motion-opacity-hover:hover {
+  opacity: 0.85;
+}
+
+@keyframes apx-reveal-up {
+  from {
+    opacity: var(--motion-fade-from);
+    transform: translateY(var(--motion-reveal-y));
+  }
+  to {
+    opacity: var(--motion-fade-to);
+    transform: translateY(0);
+  }
+}
+
+@keyframes apx-fade-in {
+  from {
+    opacity: var(--motion-fade-from);
+  }
+  to {
+    opacity: var(--motion-fade-to);
+  }
+}
+
+@keyframes apx-page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.6rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes apx-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.reveal-up {
+  animation: apx-reveal-up var(--motion-reveal-duration) var(--ease-standard) both;
+}
+
+.fade-in {
+  animation: apx-fade-in var(--duration-base) var(--ease-standard) both;
+}
+
+.page-enter {
+  animation: apx-page-enter 0.55s var(--ease-standard) both;
+}
+
+.scale-in {
+  animation: apx-scale-in var(--motion-reveal-duration) var(--ease-standard) both;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(var(--motion-reveal-y));
+}
+
+.reveal-in {
+  animation: apx-reveal-up var(--motion-reveal-duration) var(--ease-standard) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+.stagger > * {
+  opacity: 0;
+  transform: translateY(var(--motion-reveal-y));
+}
+
+.stagger-in > * {
+  animation: apx-reveal-up var(--motion-reveal-duration) var(--ease-standard) both;
+}
+
+.stagger-in > *:nth-child(1) {
+  animation-delay: calc(var(--stagger-step) * 0);
+}
+.stagger-in > *:nth-child(2) {
+  animation-delay: calc(var(--stagger-step) * 1);
+}
+.stagger-in > *:nth-child(3) {
+  animation-delay: calc(var(--stagger-step) * 2);
+}
+.stagger-in > *:nth-child(4) {
+  animation-delay: calc(var(--stagger-step) * 3);
+}
+.stagger-in > *:nth-child(5) {
+  animation-delay: calc(var(--stagger-step) * 4);
+}
+.stagger-in > *:nth-child(6) {
+  animation-delay: calc(var(--stagger-step) * 5);
+}
+.stagger-in > *:nth-child(7) {
+  animation-delay: calc(var(--stagger-step) * 6);
+}
+.stagger-in > *:nth-child(8) {
+  animation-delay: calc(var(--stagger-step) * 7);
+}
+.stagger-in > *:nth-child(n + 9) {
+  animation-delay: calc(var(--stagger-step) * 8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-lift:hover,
+  .motion-scale:hover {
+    transform: none;
+  }
+
+  .reveal-up,
+  .fade-in,
+  .page-enter,
+  .scale-in,
+  .reveal-in,
+  .stagger-in > * {
+    animation: none;
+  }
+
+  .reveal,
+  .stagger > * {
+    opacity: 1;
+    transform: none;
+  }
+}

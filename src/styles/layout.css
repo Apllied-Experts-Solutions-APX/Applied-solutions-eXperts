@@ -1,0 +1,174 @@
+/* Layout primitives — mobile-first */
+
+/* Page / content container */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.container--narrow {
+  max-width: var(--container-narrow);
+}
+
+.container--wide {
+  max-width: var(--container-wide);
+}
+
+.container--prose {
+  max-width: var(--container-prose);
+}
+
+/* Full-width section shell */
+.section {
+  width: 100%;
+  padding-block: var(--section-space);
+}
+
+.section--tight {
+  padding-block: calc(var(--section-space) * 0.65);
+}
+
+.section--flush {
+  padding-block: 0;
+}
+
+.section--subtle {
+  background: var(--color-bg-subtle);
+}
+
+.section--inverse {
+  background: var(--color-surface-inverse);
+  color: var(--color-text-on-navy);
+}
+
+.section--inverse :is(h1, h2, h3, .text-h1, .text-h2, .text-h3, .display, .text-display, p, .text-body, .text-lead) {
+  color: inherit;
+}
+
+.section--inverse .text-muted,
+.section--inverse .text-small,
+.section--inverse .text-caption {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* Constrained content block inside a full-bleed section */
+.constrained {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Vertical / horizontal stacks */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-gap);
+}
+
+.stack--tight {
+  gap: var(--space-gap-tight);
+}
+
+.stack--loose {
+  gap: var(--space-gap-loose);
+}
+
+.stack--xs {
+  gap: var(--space-1);
+}
+
+.stack--sm {
+  gap: var(--space-2);
+}
+
+.stack--md {
+  gap: var(--space-4);
+}
+
+.stack--lg {
+  gap: var(--space-6);
+}
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-gap);
+}
+
+.cluster--tight {
+  gap: var(--space-gap-tight);
+}
+
+/* Two-column split — stacks on mobile */
+.split {
+  display: grid;
+  gap: var(--space-gap-loose);
+  align-items: start;
+}
+
+@media (min-width: 48rem) {
+  .split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-7);
+  }
+
+  .split--asymmetric {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  }
+
+  .split--asymmetric-reverse {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  }
+
+  .split--align-center {
+    align-items: center;
+  }
+}
+
+/* Responsive grids */
+.grid {
+  display: grid;
+  gap: var(--space-gap);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.grid--tight {
+  gap: var(--space-gap-tight);
+}
+
+.grid--loose {
+  gap: var(--space-gap-loose);
+}
+
+@media (min-width: 48rem) {
+  .grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .grid--4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Directional accent — subtle compass-inspired cue (not logo decoration) */
+.accent-rule {
+  display: block;
+  width: 2.5rem;
+  height: 0.1875rem;
+  background: var(--color-gold);
+  border: 0;
+}

@@ -1,0 +1,92 @@
+.topics,
+.articles,
+.slots {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.topics {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.topic {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.topicTitle,
+.articleTitle {
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-line);
+  font-weight: var(--text-h3-weight);
+}
+
+.topicLabel {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-blue);
+}
+
+.articles {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.article {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+}
+
+.slot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.slotLine {
+  height: 0.85rem;
+  width: 80%;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-muted);
+}
+
+.slotLine:last-child {
+  width: 62%;
+}
+
+@media (min-width: 48rem) {
+  .topics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  .topic {
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-subtle);
+  }
+}
+
+@media (min-width: 64rem) {
+  .topics {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

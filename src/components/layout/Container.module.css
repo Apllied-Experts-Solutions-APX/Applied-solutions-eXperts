@@ -1,0 +1,4 @@
+/* Section shell — spacing/tones come from global layout utilities */
+.section {
+  isolation: isolate;
+}

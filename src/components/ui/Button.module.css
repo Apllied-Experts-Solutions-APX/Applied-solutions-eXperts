@@ -1,0 +1,158 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--touch-target);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.button:hover:not(.disabled):not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.button:active:not(.disabled):not(:disabled) {
+  transform: translateY(1px);
+}
+
+.sm {
+  min-height: var(--control-height-sm);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-small-size);
+}
+
+.primary {
+  background: var(--color-primary);
+  color: var(--color-text-on-navy);
+}
+
+.primary:hover:not(.disabled):not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.primary:active:not(.disabled):not(:disabled) {
+  background: var(--color-primary-active);
+}
+
+.secondary {
+  background: var(--color-blue);
+  color: var(--color-text-on-blue);
+}
+
+.secondary:hover:not(.disabled):not(:disabled) {
+  background: var(--color-secondary-hover);
+}
+
+.secondary:active:not(.disabled):not(:disabled) {
+  background: var(--color-secondary-active);
+}
+
+.outline {
+  background: transparent;
+  color: var(--color-text);
+  border-color: var(--color-border-strong);
+}
+
+.outline:hover:not(.disabled):not(:disabled) {
+  border-color: var(--color-blue);
+  color: var(--color-link);
+  background: var(--color-hover-fill);
+}
+
+.outline:active:not(.disabled):not(:disabled) {
+  background: var(--color-active-fill);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--color-link);
+  border-color: transparent;
+}
+
+.ghost:hover:not(.disabled):not(:disabled) {
+  background: var(--color-hover-fill);
+  color: var(--color-link-hover);
+}
+
+.ghost:active:not(.disabled):not(:disabled) {
+  background: var(--color-active-fill);
+}
+
+.disabled,
+.button:disabled {
+  background: var(--color-disabled-bg);
+  color: var(--color-disabled-text);
+  border-color: var(--color-disabled-border);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+  pointer-events: none;
+}
+
+.ghost.disabled,
+.outline.disabled,
+.ghost:disabled,
+.outline:disabled {
+  background: transparent;
+}
+
+.onDark.primary {
+  background: var(--color-gold);
+  color: var(--color-text-on-gold);
+}
+
+.onDark.primary:hover:not(.disabled):not(:disabled) {
+  background: var(--color-accent-hover);
+}
+
+.onDark.primary:active:not(.disabled):not(:disabled) {
+  background: var(--color-accent-active);
+}
+
+.onDark.outline {
+  color: var(--color-text-on-navy);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.onDark.outline:hover:not(.disabled):not(:disabled) {
+  color: var(--color-text-on-navy);
+  border-color: var(--color-gold);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.onDark.ghost {
+  color: var(--color-text-on-navy);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .primary {
+    color: var(--color-text-on-blue);
+  }
+}
+
+[data-theme="dark"] .primary {
+  color: var(--color-text-on-blue);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button:hover:not(.disabled):not(:disabled),
+  .button:active:not(.disabled):not(:disabled) {
+    transform: none;
+  }
+}

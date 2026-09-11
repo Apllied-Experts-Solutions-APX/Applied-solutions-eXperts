@@ -1,0 +1,224 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  margin-inline-start: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  z-index: 120;
+}
+
+.toggle:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.toggleBars {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 1.125rem;
+  height: 0.875rem;
+}
+
+.toggleBars span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: currentColor;
+  border-radius: 1px;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+.toggleBarsOpen span:nth-child(1) {
+  transform: translateY(0.3125rem) rotate(45deg);
+}
+
+.toggleBarsOpen span:nth-child(2) {
+  opacity: 0;
+}
+
+.toggleBarsOpen span:nth-child(3) {
+  transform: translateY(-0.3125rem) rotate(-45deg);
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  background: rgba(var(--color-navy-rgb), 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+}
+
+.backdropOpen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 115;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  width: min(20rem, 88vw);
+  height: 100dvh;
+  padding: calc(var(--header-height) + var(--space-4)) var(--space-5) var(--space-6);
+  background: var(--color-surface);
+  border-inline-start: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+  transform: translateX(100%);
+  transition: transform var(--transition-base);
+}
+
+.navOpen {
+  transform: translateX(0);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  min-height: var(--touch-target);
+  padding-inline: var(--space-3);
+  color: var(--color-text);
+  border-radius: var(--radius-sm);
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.link:hover {
+  color: var(--color-link);
+  background: var(--color-hover-fill);
+}
+
+.linkCurrent {
+  color: var(--color-link);
+}
+
+.link:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.mobileCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-target);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-primary);
+  color: var(--color-text-on-navy);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.mobileCta:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .mobileCta {
+    color: var(--color-text-on-blue);
+  }
+}
+
+[data-theme="dark"] .mobileCta {
+  color: var(--color-text-on-blue);
+}
+
+@media (min-width: 64rem) {
+  .toggle,
+  .backdrop,
+  .mobileCta {
+    display: none;
+  }
+
+  .nav {
+    position: static;
+    z-index: auto;
+    flex: 1 1 auto;
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+    height: auto;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .list {
+    flex: 1;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .link {
+    position: relative;
+    padding-inline: var(--space-2);
+    white-space: nowrap;
+  }
+
+  .link::after {
+    content: "";
+    position: absolute;
+    left: var(--space-2);
+    right: var(--space-2);
+    bottom: 0.35rem;
+    height: 2px;
+    background: var(--color-gold);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--transition-fast);
+    pointer-events: none;
+  }
+
+  .link:hover::after,
+  .link:focus-visible::after,
+  .linkCurrent::after {
+    transform: scaleX(1);
+  }
+}
+
+@media (min-width: 80rem) {
+  .link {
+    padding-inline: var(--space-3);
+  }
+
+  .link::after {
+    left: var(--space-3);
+    right: var(--space-3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggleBars span,
+  .backdrop,
+  .nav,
+  .link::after {
+    transition: none;
+  }
+}

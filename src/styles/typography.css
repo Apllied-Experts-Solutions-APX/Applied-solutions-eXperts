@@ -1,0 +1,177 @@
+/* Typography hierarchy — Source Sans 3 via --font-sans */
+
+:root {
+  --font-sans: var(--font-source-sans), "Segoe UI", "Helvetica Neue", sans-serif;
+
+  /* Display — hero / brand moments (clamped for mobile) */
+  --text-display-size: clamp(2rem, 4.5vw + 0.5rem, 3.25rem);
+  --text-display-line: 1.12;
+  --text-display-weight: 700;
+  --text-display-tracking: -0.02em;
+
+  /* Headings */
+  --text-h1-size: clamp(1.75rem, 2.5vw + 0.75rem, 2.5rem);
+  --text-h1-line: 1.15;
+  --text-h1-weight: 700;
+  --text-h1-tracking: -0.015em;
+
+  --text-h2-size: clamp(1.375rem, 1.5vw + 0.75rem, 1.875rem);
+  --text-h2-line: 1.2;
+  --text-h2-weight: 600;
+  --text-h2-tracking: -0.01em;
+
+  --text-h3-size: clamp(1.125rem, 0.75vw + 0.85rem, 1.375rem);
+  --text-h3-line: 1.3;
+  --text-h3-weight: 600;
+  --text-h3-tracking: -0.005em;
+
+  /* Body */
+  --text-body-size: 1rem;
+  --text-body-line: 1.65;
+  --text-body-weight: 400;
+
+  --text-lead-size: clamp(1.0625rem, 0.5vw + 0.9rem, 1.25rem);
+  --text-lead-line: 1.55;
+  --text-lead-weight: 400;
+
+  --text-small-size: 0.875rem;
+  --text-small-line: 1.5;
+  --text-small-weight: 400;
+
+  --text-caption-size: 0.8125rem;
+  --text-caption-line: 1.4;
+  --text-caption-weight: 500;
+  --text-caption-tracking: 0.02em;
+
+  /* UI */
+  --text-nav-size: 0.9375rem;
+  --text-nav-line: 1.4;
+  --text-nav-weight: 500;
+
+  --text-button-size: 0.9375rem;
+  --text-button-line: 1.2;
+  --text-button-weight: 600;
+  --text-button-tracking: 0.01em;
+
+  --text-label-size: 0.875rem;
+  --text-label-line: 1.4;
+  --text-label-weight: 600;
+}
+
+.display,
+.text-display {
+  font-family: var(--font-sans);
+  font-size: var(--text-display-size);
+  line-height: var(--text-display-line);
+  font-weight: var(--text-display-weight);
+  letter-spacing: var(--text-display-tracking);
+  color: var(--color-text);
+}
+
+h1,
+.text-h1 {
+  font-family: var(--font-sans);
+  font-size: var(--text-h1-size);
+  line-height: var(--text-h1-line);
+  font-weight: var(--text-h1-weight);
+  letter-spacing: var(--text-h1-tracking);
+  color: var(--color-text);
+}
+
+h2,
+.text-h2 {
+  font-family: var(--font-sans);
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-line);
+  font-weight: var(--text-h2-weight);
+  letter-spacing: var(--text-h2-tracking);
+  color: var(--color-text);
+}
+
+h3,
+.text-h3 {
+  font-family: var(--font-sans);
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-line);
+  font-weight: var(--text-h3-weight);
+  letter-spacing: var(--text-h3-tracking);
+  color: var(--color-text);
+}
+
+p,
+.text-body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line);
+  font-weight: var(--text-body-weight);
+  color: var(--color-text);
+}
+
+.text-lead {
+  font-family: var(--font-sans);
+  font-size: var(--text-lead-size);
+  line-height: var(--text-lead-line);
+  font-weight: var(--text-lead-weight);
+  color: var(--color-text);
+}
+
+.text-small {
+  font-family: var(--font-sans);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-line);
+  font-weight: var(--text-small-weight);
+  color: var(--color-text-muted);
+}
+
+.text-caption {
+  font-family: var(--font-sans);
+  font-size: var(--text-caption-size);
+  line-height: var(--text-caption-line);
+  font-weight: var(--text-caption-weight);
+  letter-spacing: var(--text-caption-tracking);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.text-nav {
+  font-family: var(--font-sans);
+  font-size: var(--text-nav-size);
+  line-height: var(--text-nav-line);
+  font-weight: var(--text-nav-weight);
+}
+
+.text-button {
+  font-family: var(--font-sans);
+  font-size: var(--text-button-size);
+  line-height: var(--text-button-line);
+  font-weight: var(--text-button-weight);
+  letter-spacing: var(--text-button-tracking);
+}
+
+.text-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-line);
+  font-weight: var(--text-label-weight);
+  color: var(--color-text);
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-subtle {
+  color: var(--color-text-subtle);
+}
+
+.text-inverse {
+  color: var(--color-text-inverse);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}

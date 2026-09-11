@@ -1,0 +1,24 @@
+.cta {
+  background:
+    radial-gradient(circle at 85% 20%, rgba(var(--color-blue-rgb), 0.35), transparent 40%),
+    var(--color-navy);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.title {
+  color: var(--color-text-on-navy);
+  text-wrap: balance;
+}
+
+.subtitle {
+  font-size: var(--text-lead-size);
+  line-height: var(--text-lead-line);
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 32rem;
+}
