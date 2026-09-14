@@ -53,7 +53,7 @@ export default function HomePage() {
               </p>
             </div>
           </Reveal>
-          <Stagger as="ul" className={styles.ecosystemList}>
+          <Stagger as="ul" variant="scale" className={styles.ecosystemList}>
             {homeEcosystem.items.map((item) => (
               <li key={item.id} className={styles.ecosystemItem}>
                 <span className={styles.ecosystemAccent} aria-hidden="true" />
@@ -95,7 +95,7 @@ export default function HomePage() {
               </p>
             </div>
           </Reveal>
-          <Stagger as="ul" className={styles.audienceGrid}>
+          <Stagger as="ul" variant="left" className={styles.audienceGrid}>
             {homeAudiences.items.map((item) => (
               <li key={item.title} className={styles.audienceItem}>
                 <h3 className={styles.audienceTitle}>{item.title}</h3>
@@ -133,15 +133,15 @@ export default function HomePage() {
                 <Button href={homeLabs.href}>{homeLabs.cta}</Button>
               </div>
             </Reveal>
-            <Reveal delay={120}>
+            <Reveal delay={140} variant="scale">
               <div className={`${styles.mediaStack} motion-media-reveal`} aria-label="APX Labs media placeholders">
                 <Media aspect="4x3" className={styles.mediaPrimary}>
-                  <MediaPlaceholder label={homeLabs.mediaPlaceholders[0].label} />
+                  <MediaPlaceholder {...homeLabs.mediaPlaceholders[0]} />
                 </Media>
                 <div className={styles.mediaRow}>
                   {homeLabs.mediaPlaceholders.slice(1, 4).map((slot) => (
                     <Media key={slot.label} aspect="1x1">
-                      <MediaPlaceholder label={slot.label} />
+                      <MediaPlaceholder {...slot} />
                     </Media>
                   ))}
                 </div>
@@ -161,18 +161,18 @@ export default function HomePage() {
       >
         <Container>
           <Split variant="asymmetric-reverse" align="center">
-            <Reveal delay={80}>
+            <Reveal delay={80} variant="left">
               <div className={`${styles.mediaStack} motion-media-reveal`} aria-label="APX Digital media placeholders">
                 <div className={styles.mediaRow}>
                   {homeDigital.mediaPlaceholders.map((slot) => (
                     <Media key={slot.label} aspect="3x2">
-                      <MediaPlaceholder label={slot.label} />
+                      <MediaPlaceholder {...slot} />
                     </Media>
                   ))}
                 </div>
               </div>
             </Reveal>
-            <Reveal>
+            <Reveal variant="right">
               <div className={styles.featureCopy}>
                 <span className="accent-rule" aria-hidden="true" />
                 <p className={`text-caption ${styles.focus}`}>{homeDigital.focus}</p>
@@ -217,7 +217,7 @@ export default function HomePage() {
               </p>
             </div>
           </Reveal>
-          <Stagger as="ul" className={styles.solutionsGrid}>
+          <Stagger as="ul" variant="left" className={styles.solutionsGrid}>
             {homeSolutions.items.map((item) => (
               <li key={item.title} className={styles.solutionBlock}>
                 <h3 className={styles.solutionTitle}>{item.title}</h3>
@@ -226,7 +226,9 @@ export default function HomePage() {
             ))}
           </Stagger>
           <div className={styles.sectionAction}>
-            <Button href={homeSolutions.href}>{homeSolutions.cta}</Button>
+            <Reveal delay={80}>
+              <Button href={homeSolutions.href}>{homeSolutions.cta}</Button>
+            </Reveal>
           </div>
         </Container>
       </Section>
@@ -234,17 +236,21 @@ export default function HomePage() {
       {/* 07 — Our Work */}
       <Section id={homeWork.id} ariaLabelledBy="work-heading" tone="subtle" reveal={false}>
         <Container>
-          <Reveal>
-            <div className={styles.sectionIntro}>
-              <span className="accent-rule" aria-hidden="true" />
-              <Heading as="h2" id="work-heading">
-                {homeWork.title}
-              </Heading>
+          <div className={styles.sectionIntro}>
+            <Reveal>
+              <div className={styles.headingGroup}>
+                <span className="accent-rule" aria-hidden="true" />
+                <Heading as="h2" id="work-heading">
+                  {homeWork.title}
+                </Heading>
+              </div>
+            </Reveal>
+            <Reveal delay={90}>
               <p className={`text-muted ${styles.sectionLead}`}>{homeWork.lead}</p>
-            </div>
-          </Reveal>
+            </Reveal>
+          </div>
 
-          <Stagger as="ol" className={styles.workPath}>
+          <Stagger as="ol" variant="left" className={styles.workPath}>
             {homeWork.structure.map((step, index) => (
               <li key={step} className={styles.workStep}>
                 <span className={styles.workIndex} aria-hidden="true">
@@ -254,22 +260,26 @@ export default function HomePage() {
               </li>
             ))}
           </Stagger>
-          <p className={`text-muted ${styles.workPathLead}`}>
-            {homeWork.structureLead}
-          </p>
+          <Reveal delay={60}>
+            <p className={`text-muted ${styles.workPathLead}`}>
+              {homeWork.structureLead}
+            </p>
+          </Reveal>
 
-          <p className={`text-caption ${styles.categoriesLabel}`}>
-            Ecosystem-wide categories
-          </p>
-          <ul className={styles.categoryList}>
+          <Reveal>
+            <p className={`text-caption ${styles.categoriesLabel}`}>
+              Ecosystem-wide categories
+            </p>
+          </Reveal>
+          <Stagger as="ul" variant="fade" className={styles.categoryList}>
             {homeWork.categories.map((category) => (
               <li key={category}>{category}</li>
             ))}
-          </ul>
+          </Stagger>
 
-          <Stagger as="ul" className={`${styles.workPlaceholders} grid grid--3`}>
+          <Stagger as="ul" variant="scale" className={`${styles.workPlaceholders} grid grid--3`}>
             {homeWork.placeholders.map((slot) => (
-              <li key={slot.category} className={styles.workCard}>
+              <li key={slot.category} className={`${styles.workCard} motion-media-reveal`}>
                 <Media aspect="16x9">
                   <MediaPlaceholder label={slot.label} />
                 </Media>
@@ -280,11 +290,15 @@ export default function HomePage() {
             ))}
           </Stagger>
 
-          <p className={`text-small text-muted ${styles.emptyNote}`}>
-            {homeWork.emptyNote}
-          </p>
+          <Reveal delay={80}>
+            <p className={`text-small text-muted ${styles.emptyNote}`}>
+              {homeWork.emptyNote}
+            </p>
+          </Reveal>
           <div className={styles.sectionAction}>
-            <Button href={homeWork.href}>{homeWork.cta}</Button>
+            <Reveal delay={120}>
+              <Button href={homeWork.href}>{homeWork.cta}</Button>
+            </Reveal>
           </div>
         </Container>
       </Section>
@@ -306,7 +320,7 @@ export default function HomePage() {
               </Heading>
             </div>
           </Reveal>
-          <Stagger as="ul" className={styles.whyGrid}>
+          <Stagger as="ul" variant="left" className={styles.whyGrid}>
             {homeWhy.items.map((item) => (
               <li key={item.title} className={styles.whyItem}>
                 <h3 className={styles.whyTitle}>{item.title}</h3>
@@ -337,9 +351,9 @@ export default function HomePage() {
               </p>
             </div>
           </Reveal>
-          <Stagger as="ul" className={`${styles.insightsGrid} grid grid--3`}>
+          <Stagger as="ul" variant="scale" className={`${styles.insightsGrid} grid grid--3`}>
             {homeInsights.slots.map((slot) => (
-              <li key={slot.kind} className={styles.insightSlot}>
+              <li key={slot.kind} className={`${styles.insightSlot} motion-media-reveal`}>
                 <Media aspect="16x9">
                   <MediaPlaceholder label={slot.label} />
                 </Media>
@@ -367,7 +381,7 @@ export default function HomePage() {
         reveal={false}
       >
         <Container narrow>
-          <Reveal className={styles.finalInner}>
+          <Stagger className={styles.finalInner}>
             <span className={`accent-rule ${styles.finalRule}`} aria-hidden="true" />
             <Heading as="h2" id="final-cta-heading" className={styles.finalTitle}>
               {homeFinalCta.title}
@@ -376,7 +390,7 @@ export default function HomePage() {
             <Button href={homeFinalCta.cta.href} onDark>
               {homeFinalCta.cta.label}
             </Button>
-          </Reveal>
+          </Stagger>
         </Container>
       </Section>
     </>

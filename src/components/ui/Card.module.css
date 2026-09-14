@@ -48,7 +48,7 @@
 .interactive:hover {
   border-color: var(--color-border-strong);
   box-shadow: var(--shadow-md);
-  transform: translateY(-0.32rem);
+  transform: translateY(-0.28rem) scale(1.01);
   background:
     linear-gradient(
       165deg,

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { labsPage } from "@/data/labs";
-import { Container, Grid, Section } from "@/components/layout/Container";
+import { Container, Section } from "@/components/layout/Container";
 import { PageHero } from "@/components/sections/PageHero";
 import { PageCta } from "@/components/sections/PageCta";
 import { SectionIntro } from "@/components/sections/SectionIntro";
@@ -39,7 +39,7 @@ export default function LabsPage() {
             title={labsPage.areas.title}
             lead={labsPage.areas.lead}
           />
-          <Stagger as="ul" className={styles.areaGrid}>
+          <Stagger as="ul" variant="scale" className={styles.areaGrid}>
             {labsPage.areas.items.map((item) => (
               <li key={item.title} className={styles.areaItem}>
                 <h3 className={styles.areaTitle}>{item.title}</h3>
@@ -57,15 +57,15 @@ export default function LabsPage() {
             title={labsPage.media.title}
             lead={labsPage.media.lead}
           />
-          <Grid as="ul" columns={2} className={styles.mediaGrid}>
+          <Stagger as="ul" variant="scale" className={styles.mediaGrid}>
             {labsPage.media.placeholders.map((slot) => (
-              <li key={slot.label}>
+              <li key={slot.label} className="motion-media-reveal">
                 <Media aspect="16x9">
                   <MediaPlaceholder label={slot.label} />
                 </Media>
               </li>
             ))}
-          </Grid>
+          </Stagger>
         </Container>
       </Section>
 

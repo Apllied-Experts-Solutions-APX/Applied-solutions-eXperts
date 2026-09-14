@@ -36,7 +36,7 @@ export default function SolutionsPage() {
             title={solutionsPage.groups.title}
             lead={solutionsPage.groups.lead}
           />
-          <Stagger as="ul" className={styles.groups}>
+          <Stagger as="ul" variant="scale" className={styles.groups}>
             {solutionsPage.groups.items.map((item) => (
               <li key={item.title} className={styles.group}>
                 <h3 className={styles.groupTitle}>{item.title}</h3>

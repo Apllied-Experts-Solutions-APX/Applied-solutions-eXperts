@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { insightsPage } from "@/data/insights";
-import { Container, Grid, Section } from "@/components/layout/Container";
+import { Container, Section } from "@/components/layout/Container";
 import { PageHero } from "@/components/sections/PageHero";
 import { SectionIntro } from "@/components/sections/SectionIntro";
 import { Media, MediaPlaceholder } from "@/components/media/Media";
@@ -32,7 +32,7 @@ export default function InsightsPage() {
             title={insightsPage.architecture.title}
             lead={insightsPage.architecture.lead}
           />
-          <Stagger as="ul" className={styles.topics}>
+          <Stagger as="ul" variant="left" className={styles.topics}>
             {insightsPage.architecture.topics.map((topic) => (
               <li key={topic.title} className={styles.topic}>
                 <h3 className={styles.topicTitle}>{topic.title}</h3>
@@ -52,7 +52,7 @@ export default function InsightsPage() {
           />
 
           {hasArticles ? (
-            <Stagger as="ul" className={styles.articles}>
+            <Stagger as="ul" variant="scale" className={styles.articles}>
               {insightsPage.articles.map((article) => (
                 <li key={article.slug} className={styles.article}>
                   <p className={`text-caption ${styles.topicLabel}`}>{article.topic}</p>
@@ -63,9 +63,9 @@ export default function InsightsPage() {
             </Stagger>
           ) : (
             <div className={styles.empty}>
-              <Grid as="ul" columns={3} className={styles.slots}>
+              <Stagger as="ul" variant="scale" className={`${styles.slots} grid grid--3`}>
                 {insightsPage.slots.map((slot) => (
-                  <li key={slot.kind} className={styles.slot}>
+                  <li key={slot.kind} className={`${styles.slot} motion-media-reveal`}>
                     <Media aspect="16x9">
                       <MediaPlaceholder label={slot.label} />
                     </Media>
@@ -74,7 +74,7 @@ export default function InsightsPage() {
                     <p className={styles.slotLine}>Summary</p>
                   </li>
                 ))}
-              </Grid>
+              </Stagger>
               <Button href="/contact" variant="outline">
                 Talk with APX
               </Button>

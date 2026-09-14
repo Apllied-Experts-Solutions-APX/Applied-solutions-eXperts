@@ -4,14 +4,11 @@
 
 .areaGrid,
 .mediaGrid {
+  display: grid;
+  gap: var(--space-5);
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-.areaGrid {
-  display: grid;
-  gap: var(--space-5);
 }
 
 .areaItem {
@@ -70,7 +67,8 @@
 }
 
 @media (min-width: 48rem) {
-  .areaGrid {
+  .areaGrid,
+  .mediaGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

@@ -35,6 +35,82 @@
   color: rgba(255, 255, 255, 0.78);
 }
 
+.asset,
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video {
+  display: block;
+  object-fit: cover;
+  background: var(--color-navy);
+}
+
+/* Keep controls usable — skip decorative hover scale on interactive video */
+:global(.media:hover) .video {
+  transform: none;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.gallery {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  gap: 0.125rem;
+  width: 100%;
+  height: 100%;
+  background: var(--color-navy);
+}
+
+.galleryItem {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.galleryCount1 {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.galleryCount2 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+.galleryCount3 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.galleryCount3 .galleryItem:last-child {
+  grid-column: 1 / -1;
+}
+
+.galleryCount4 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.galleryCount4 .galleryItem:nth-child(n + 5) {
+  display: none;
+}
+
+@media (max-width: 29.99rem) {
+  .galleryCount2,
+  .galleryCount3,
+  .galleryCount4 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .placeholder {
     transition: none;

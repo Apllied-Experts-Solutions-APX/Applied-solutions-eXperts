@@ -3,13 +3,13 @@
   top: 0;
   z-index: 100;
   border-bottom: 1px solid transparent;
-  background: color-mix(in srgb, var(--color-surface) 68%, transparent);
+  background: color-mix(in srgb, var(--color-surface) 62%, transparent);
   backdrop-filter: blur(10px);
   transition:
-    background-color var(--transition-base),
-    border-color var(--transition-base),
-    box-shadow var(--transition-base),
-    backdrop-filter var(--transition-base);
+    background-color 0.45s var(--motion-ease-out),
+    border-color 0.45s var(--motion-ease-out),
+    box-shadow 0.45s var(--motion-ease-out),
+    backdrop-filter 0.45s var(--motion-ease-out);
 }
 
 .header::after {
@@ -30,15 +30,15 @@
   transform: scaleX(0.4);
   transform-origin: center;
   transition:
-    opacity var(--transition-base),
-    transform var(--transition-base);
+    opacity 0.45s var(--motion-ease-out),
+    transform 0.45s var(--motion-ease-out);
   pointer-events: none;
 }
 
 .scrolled {
-  border-bottom-color: var(--color-border);
-  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
-  backdrop-filter: blur(16px);
+  border-bottom-color: color-mix(in srgb, var(--color-border) 85%, transparent);
+  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+  backdrop-filter: blur(18px);
   box-shadow: var(--shadow-sm);
 }
 

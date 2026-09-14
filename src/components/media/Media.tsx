@@ -1,3 +1,5 @@
+import Image from "next/image";
+import { assetPath } from "@/lib/assets";
 import { cx } from "@/lib/utils";
 import styles from "./Media.module.css";
 
@@ -67,16 +69,110 @@ export function VideoEmbed({
   );
 }
 
-type MediaPlaceholderProps = {
+/** Slot data accepted by MediaPlaceholder (label-only remains a valid empty slot). */
+export type MediaSlotInput = {
   label: string;
+  /** Single media path — video vs image is detected from the extension. */
+  src?: string;
+  /** Multiple images render as a lightweight in-frame gallery. */
+  images?: readonly string[];
+};
+
+type MediaPlaceholderProps = MediaSlotInput & {
   className?: string;
 };
 
+const VIDEO_EXT = /\.(mp4|webm|ogg|mov)(\?|#|$)/i;
+const IMAGE_EXT = /\.(jpe?g|png|gif|webp|avif|svg)(\?|#|$)/i;
+
+function isVideoSrc(src: string): boolean {
+  return VIDEO_EXT.test(src);
+}
+
+function isImageSrc(src: string): boolean {
+  return IMAGE_EXT.test(src);
+}
+
+function galleryCountClass(count: number): string | undefined {
+  if (count <= 1) return styles.galleryCount1;
+  if (count === 2) return styles.galleryCount2;
+  if (count === 3) return styles.galleryCount3;
+  return styles.galleryCount4;
+}
+
+function SlotImage({ src, alt }: { src: string; alt: string }) {
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      sizes="(max-width: 48rem) 100vw, (max-width: 64rem) 50vw, 33vw"
+      className={styles.image}
+    />
+  );
+}
+
 /**
- * Intentional empty media slot for future APX photos/videos.
- * Do not replace with stock imagery.
+ * Media slot: video, image, image gallery, or empty placeholder.
+ * Do not replace empty slots with stock imagery.
  */
-export function MediaPlaceholder({ label, className }: MediaPlaceholderProps) {
+export function MediaPlaceholder({
+  label,
+  src,
+  images,
+  className,
+}: MediaPlaceholderProps) {
+  const gallery = images?.filter(Boolean) ?? [];
+
+  if (gallery.length > 1) {
+    return (
+      <div
+        className={cx(styles.gallery, galleryCountClass(gallery.length), className)}
+        role="group"
+        aria-label={label}
+      >
+        {gallery.map((imageSrc, index) => (
+          <div key={`${imageSrc}-${index}`} className={styles.galleryItem}>
+            <SlotImage src={imageSrc} alt={`${label} ${index + 1}`} />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (gallery.length === 1) {
+    return (
+      <div className={cx(styles.asset, className)}>
+        <SlotImage src={gallery[0]} alt={label} />
+      </div>
+    );
+  }
+
+  if (src) {
+    if (isVideoSrc(src)) {
+      return (
+        <video
+          className={cx(styles.video, className)}
+          src={assetPath(src)}
+          aria-label={label}
+          controls
+          autoPlay
+          muted
+          playsInline
+          loop
+        />
+      );
+    }
+
+    if (isImageSrc(src) || src.startsWith("/")) {
+      return (
+        <div className={cx(styles.asset, className)}>
+          <SlotImage src={src} alt={label} />
+        </div>
+      );
+    }
+  }
+
   return (
     <div
       className={cx(styles.placeholder, className)}

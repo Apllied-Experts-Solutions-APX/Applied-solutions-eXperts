@@ -4,6 +4,7 @@ import { Container, Section, Split } from "@/components/layout/Container";
 import { PageHero } from "@/components/sections/PageHero";
 import { SectionIntro } from "@/components/sections/SectionIntro";
 import { ContactForm } from "@/components/sections/ContactForm";
+import { Reveal } from "@/components/motion/Reveal";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -32,7 +33,9 @@ export default function ContactPage() {
                 className={styles.introFlush}
               />
             </div>
-            <ContactForm />
+            <Reveal delay={120} variant="right">
+              <ContactForm />
+            </Reveal>
           </Split>
         </Container>
       </Section>

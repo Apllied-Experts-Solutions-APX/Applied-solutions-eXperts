@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { workPage } from "@/data/work";
-import { Container, Grid, Section } from "@/components/layout/Container";
+import { Container, Section } from "@/components/layout/Container";
 import { PageHero } from "@/components/sections/PageHero";
 import { PageCta } from "@/components/sections/PageCta";
 import { SectionIntro } from "@/components/sections/SectionIntro";
@@ -38,7 +38,7 @@ export default function WorkPage() {
             title={workPage.path.title}
             lead={workPage.path.lead}
           />
-          <Stagger as="ol" className={styles.path}>
+          <Stagger as="ol" variant="left" className={styles.path}>
             {workPage.path.steps.map((step, index) => (
               <li key={step.title} className={styles.step}>
                 <span className={styles.index} aria-hidden="true">
@@ -59,14 +59,14 @@ export default function WorkPage() {
             title={workPage.categories.title}
             lead={workPage.categories.lead}
           />
-          <ul className={styles.categories}>
+          <Stagger as="ul" variant="fade" className={styles.categories}>
             {workPage.categories.items.map((category) => (
               <li key={category}>{category}</li>
             ))}
-          </ul>
+          </Stagger>
 
           {hasProjects ? (
-            <Stagger as="ul" className={styles.projects}>
+            <Stagger as="ul" variant="scale" className={styles.projects}>
               {workPage.projects.map((project) => (
                 <li key={project.slug} className={styles.project}>
                   <Media aspect="16x9">
@@ -95,9 +95,9 @@ export default function WorkPage() {
             </Stagger>
           ) : (
             <div className={styles.empty}>
-              <Grid as="ul" columns={3} className={styles.placeholders}>
+              <Stagger as="ul" variant="scale" className={`${styles.placeholders} grid grid--3`}>
                 {workPage.placeholders.map((slot) => (
-                  <li key={slot.category} className={styles.placeholderCard}>
+                  <li key={slot.category} className={`${styles.placeholderCard} motion-media-reveal`}>
                     <Media aspect="16x9">
                       <MediaPlaceholder label={slot.label} />
                     </Media>
@@ -109,7 +109,7 @@ export default function WorkPage() {
                     <p className={styles.placeholderFrame}>Result</p>
                   </li>
                 ))}
-              </Grid>
+              </Stagger>
               <h2 className={styles.emptyTitle}>{workPage.empty.title}</h2>
               <p className="text-muted">{workPage.empty.note}</p>
             </div>

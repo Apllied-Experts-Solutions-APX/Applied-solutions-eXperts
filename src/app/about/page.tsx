@@ -7,7 +7,7 @@ import { SectionIntro } from "@/components/sections/SectionIntro";
 import { Button } from "@/components/ui/Button";
 import { Card, CardBody, CardTitle } from "@/components/ui/Card";
 import { TextLink } from "@/components/ui/TextLink";
-import { Stagger } from "@/components/motion/Reveal";
+import { Stagger, Reveal } from "@/components/motion/Reveal";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -39,7 +39,9 @@ export default function AboutPage() {
               lead={aboutPage.who.lead}
               className={styles.introFlush}
             />
-            <p className={styles.statement}>{aboutPage.who.body}</p>
+            <Reveal delay={100}>
+              <p className={styles.statement}>{aboutPage.who.body}</p>
+            </Reveal>
           </Split>
         </Container>
       </Section>
@@ -51,7 +53,7 @@ export default function AboutPage() {
             title={aboutPage.what.title}
             lead={aboutPage.what.lead}
           />
-          <Stagger as="ul" className={styles.verbGrid}>
+          <Stagger as="ul" variant="scale" className={styles.verbGrid}>
             {aboutPage.what.items.map((item) => (
               <li key={item.title} className={styles.verbItem}>
                 <h3 className={styles.verbTitle}>{item.title}</h3>
@@ -69,7 +71,7 @@ export default function AboutPage() {
             title={aboutPage.ecosystem.title}
             lead={aboutPage.ecosystem.lead}
           />
-          <Stagger as="ul" className={styles.ecosystem}>
+          <Stagger as="ul" variant="scale" className={styles.ecosystem}>
             {aboutPage.ecosystem.items.map((item) => (
               <li key={item.id}>
                 <Card className="motion-lift">
@@ -95,7 +97,7 @@ export default function AboutPage() {
             title={aboutPage.audiences.title}
             lead={aboutPage.audiences.lead}
           />
-          <Stagger as="ul" className={styles.audienceGrid}>
+          <Stagger as="ul" variant="left" className={styles.audienceGrid}>
             {aboutPage.audiences.items.map((item) => (
               <li key={item.title} className={styles.audienceItem}>
                 <h3 className={styles.audienceTitle}>{item.title}</h3>
@@ -113,7 +115,9 @@ export default function AboutPage() {
             title={aboutPage.approach.title}
             lead={aboutPage.approach.lead}
           />
-          <p className="text-muted">{aboutPage.approach.body}</p>
+          <Reveal delay={80}>
+            <p className="text-muted">{aboutPage.approach.body}</p>
+          </Reveal>
         </Container>
       </Section>
 
@@ -124,14 +128,16 @@ export default function AboutPage() {
             title={aboutPage.vision.title}
             lead={aboutPage.vision.lead}
           />
-          <p className={styles.tagline}>{aboutPage.vision.body}</p>
+          <Reveal delay={80}>
+            <p className={styles.tagline}>{aboutPage.vision.body}</p>
+          </Reveal>
         </Container>
       </Section>
 
       <Section ariaLabelledBy={aboutPage.why.id}>
         <Container>
           <SectionIntro id={aboutPage.why.id} title={aboutPage.why.title} />
-          <Stagger as="ul" className={styles.whyGrid}>
+          <Stagger as="ul" variant="left" className={styles.whyGrid}>
             {aboutPage.why.items.map((item) => (
               <li key={item.title} className={styles.whyItem}>
                 <h3 className={styles.whyTitle}>{item.title}</h3>

@@ -1,48 +1,84 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { cx } from "@/lib/utils";
+
+export type MotionVariant = "up" | "left" | "right" | "scale" | "fade";
 
 type RevealProps = {
   children: React.ReactNode;
   className?: string;
   delay?: number;
+  variant?: MotionVariant;
 };
 
-/**
- * Intersection-based entrance — respects prefers-reduced-motion.
- */
-export function Reveal({ children, className, delay = 0 }: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
+const VARIANT_CLASS: Record<MotionVariant, string | undefined> = {
+  up: undefined,
+  left: "reveal--left",
+  right: "reveal--right",
+  scale: "reveal--scale",
+  fade: "reveal--fade",
+};
+
+function useOnceInView(rootMargin = "0px 0px -8% 0px", threshold = 0.1) {
+  const [node, setNode] = useState<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const node = ref.current;
     if (!node) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const revealNow = () => setVisible(true);
+
+    if (media.matches) {
+      revealNow();
       return;
     }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
+          revealNow();
           observer.disconnect();
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" },
+      { threshold, rootMargin },
     );
 
     observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
+
+    const onMotionPreference = () => {
+      if (media.matches) {
+        revealNow();
+        observer.disconnect();
+      }
+    };
+    media.addEventListener("change", onMotionPreference);
+
+    return () => {
+      observer.disconnect();
+      media.removeEventListener("change", onMotionPreference);
+    };
+  }, [node, rootMargin, threshold]);
+
+  return { setNode, visible };
+}
+
+/**
+ * Intersection-based entrance — respects prefers-reduced-motion.
+ */
+export function Reveal({
+  children,
+  className,
+  delay = 0,
+  variant = "up",
+}: RevealProps) {
+  const { setNode, visible } = useOnceInView();
 
   return (
     <div
-      ref={ref}
-      className={cx("reveal", visible && "reveal-in", className)}
+      ref={setNode}
+      className={cx("reveal", VARIANT_CLASS[variant], visible && "reveal-in", className)}
       style={{ "--reveal-delay": `${delay}ms` } as React.CSSProperties}
     >
       {children}
@@ -54,38 +90,26 @@ type StaggerProps = {
   children: React.ReactNode;
   className?: string;
   as?: "div" | "ul" | "ol";
+  variant?: MotionVariant;
 };
 
-export function Stagger({ children, className, as: Tag = "div" }: StaggerProps) {
-  const [node, setNode] = useState<HTMLElement | null>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    if (!node) return;
-
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -4% 0px" },
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [node]);
+export function Stagger({
+  children,
+  className,
+  as: Tag = "div",
+  variant = "up",
+}: StaggerProps) {
+  const { setNode, visible } = useOnceInView("0px 0px -5% 0px", 0.06);
 
   return (
     <Tag
       ref={setNode}
-      className={cx("stagger", visible && "stagger-in", className)}
+      className={cx(
+        "stagger",
+        variant !== "up" && `stagger--${variant}`,
+        visible && "stagger-in",
+        className,
+      )}
     >
       {children}
     </Tag>

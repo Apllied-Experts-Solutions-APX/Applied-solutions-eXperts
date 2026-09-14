@@ -6,7 +6,7 @@ import { PageCta } from "@/components/sections/PageCta";
 import { SectionIntro } from "@/components/sections/SectionIntro";
 import { Button } from "@/components/ui/Button";
 import { Media, MediaPlaceholder } from "@/components/media/Media";
-import { Stagger } from "@/components/motion/Reveal";
+import { Stagger, Reveal } from "@/components/motion/Reveal";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -36,15 +36,19 @@ export default function DigitalPage() {
                 lead={digitalPage.role.lead}
                 className={styles.introFlush}
               />
-              <p className="text-muted">{digitalPage.role.body}</p>
+              <Reveal delay={80}>
+                <p className="text-muted">{digitalPage.role.body}</p>
+              </Reveal>
             </div>
-            <div className={styles.mediaColumn} aria-label="APX Digital media placeholders">
-              {digitalPage.media.placeholders.map((slot) => (
-                <Media key={slot.label} aspect="3x2">
-                  <MediaPlaceholder label={slot.label} />
-                </Media>
-              ))}
-            </div>
+            <Reveal delay={100} variant="scale">
+              <div className={styles.mediaColumn} aria-label="APX Digital media placeholders">
+                {digitalPage.media.placeholders.map((slot) => (
+                  <Media key={slot.label} aspect="3x2">
+                    <MediaPlaceholder label={slot.label} />
+                  </Media>
+                ))}
+              </div>
+            </Reveal>
           </Split>
         </Container>
       </Section>
@@ -52,7 +56,7 @@ export default function DigitalPage() {
       <Section ariaLabelledBy={digitalPage.areas.id} tone="subtle">
         <Container>
           <SectionIntro id={digitalPage.areas.id} title={digitalPage.areas.title} />
-          <Stagger as="ol" className={styles.areaList}>
+          <Stagger as="ol" variant="left" className={styles.areaList}>
             {digitalPage.areas.items.map((item, index) => (
               <li key={item.title} className={styles.areaItem}>
                 <span className={styles.index} aria-hidden="true">

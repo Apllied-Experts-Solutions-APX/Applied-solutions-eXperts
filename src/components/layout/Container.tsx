@@ -45,7 +45,7 @@ type SectionProps = {
   spacing?: "default" | "tight" | "flush";
   /** Decorative depth layer (grid / soft glow) */
   atmosphere?: boolean | "grid" | "glow";
-  /** Intersection entrance for the whole section (disable when children use Stagger) */
+  /** Optional whole-section entrance (prefer child Reveal/Stagger for choreography) */
   reveal?: boolean;
 };
 
@@ -57,7 +57,7 @@ export function Section({
   tone = "default",
   spacing = "default",
   atmosphere = false,
-  reveal = true,
+  reveal = false,
 }: SectionProps) {
   const atmosphereClass =
     atmosphere === true || atmosphere === "grid"

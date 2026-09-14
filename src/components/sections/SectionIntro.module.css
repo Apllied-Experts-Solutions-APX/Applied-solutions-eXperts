@@ -7,6 +7,13 @@
   margin-bottom: var(--space-7);
 }
 
+.headingBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
 .eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.06em;

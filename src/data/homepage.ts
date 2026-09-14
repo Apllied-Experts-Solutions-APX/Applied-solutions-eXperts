@@ -93,9 +93,9 @@ export const homeLabs = {
     "Innovation",
   ],
   mediaPlaceholders: [
-    { label: "Robotics practical" },
-    { label: "STEM activity" },
-    { label: "Science practical" },
+    { label: "Robotics practical", src: "/videos/video1.mp4" },
+    { label: "STEM activity", src: "/images/robot1.jpeg" },
+    { label: "Science practical", src: "/videos/video2.mp4" },
     { label: "Learner project" },
   ],
 } as const;
@@ -119,8 +119,8 @@ export const homeDigital = {
   futureNote:
     "Structured courses, certificates and an online learning experience are part of where APX Digital is headed — not what is live today.",
   mediaPlaceholders: [
-    { label: "Mentorship session" },
-    { label: "Training activity" },
+    { label: "Mentorship session", src: "" },
+    { label: "Training activity", src: "" },
     { label: "Learner project" },
   ],
 } as const;

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { siteConfig } from "@/config/site";
 import { MainNav } from "@/components/navigation/MainNav";
 import { Container } from "@/components/layout/Container";
@@ -12,19 +13,33 @@ import styles from "./SiteHeader.module.css";
 
 /**
  * Site header — balanced primary nav + distinct Let's Talk CTA.
- * Gains a denser surface after the user scrolls past the hero.
+ * Gains a denser surface after the hero / page intro leaves the viewport.
  */
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
+    const sentinel = document.querySelector("[data-scroll-sentinel]");
+
+    if (sentinel) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          setScrolled(!entry.isIntersecting);
+        },
+        { threshold: 0, rootMargin: "-8px 0px 0px 0px" },
+      );
+      observer.observe(sentinel);
+      return () => observer.disconnect();
+    }
+
     const onScroll = () => {
       setScrolled(window.scrollY > 24);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [pathname]);
 
   return (
     <header className={cx(styles.header, scrolled && styles.scrolled)}>

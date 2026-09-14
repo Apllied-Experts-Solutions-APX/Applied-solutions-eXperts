@@ -3,11 +3,21 @@
 :root {
   --motion-fade-from: 0;
   --motion-fade-to: 1;
-  --motion-reveal-y: 1.25rem;
-  --motion-reveal-duration: 0.75s;
-  --stagger-step: 85ms;
-  --motion-card-lift: -0.35rem;
+  --motion-reveal-y: 1.1rem;
+  --motion-reveal-x: 0.85rem;
+  --motion-reveal-duration: 0.7s;
+  --stagger-step: 80ms;
+  --motion-card-lift: -0.32rem;
   --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 47.99rem) {
+  :root {
+    --motion-reveal-y: 0.75rem;
+    --motion-reveal-x: 0.5rem;
+    --motion-reveal-duration: 0.52s;
+    --stagger-step: 55ms;
+  }
 }
 
 /* Interactive feedback helpers */
@@ -47,14 +57,14 @@
 .motion-card {
   position: relative;
   transition:
-    transform var(--transition-base),
+    transform var(--transition-base) var(--motion-ease-out),
     box-shadow var(--transition-base),
     border-color var(--transition-base),
     background-color var(--transition-base);
 }
 
 .motion-card:hover {
-  transform: translateY(var(--motion-card-lift));
+  transform: translateY(var(--motion-card-lift)) scale(1.01);
   box-shadow: var(--shadow-md);
   border-color: var(--color-border-strong);
 }
@@ -69,18 +79,15 @@
 }
 
 .motion-media-reveal > * {
-  transform: scale(1.045);
-  transition: transform calc(var(--motion-reveal-duration) + 0.2s) var(--motion-ease-out);
+  transform: translateY(0.45rem) scale(0.98);
+  transition:
+    transform calc(var(--motion-reveal-duration) + 0.15s) var(--motion-ease-out),
+    opacity var(--motion-reveal-duration) var(--motion-ease-out);
 }
 
 .reveal-in .motion-media-reveal > *,
 .stagger-in .motion-media-reveal > * {
-  transform: scale(1);
-}
-
-/* Soft parallax layer — decorative only; disabled on small screens */
-.motion-parallax {
-  will-change: transform;
+  transform: translateY(0) scale(1);
 }
 
 @keyframes apx-reveal-up {
@@ -91,6 +98,39 @@
   to {
     opacity: var(--motion-fade-to);
     transform: translateY(0);
+  }
+}
+
+@keyframes apx-reveal-left {
+  from {
+    opacity: var(--motion-fade-from);
+    transform: translateX(calc(var(--motion-reveal-x) * -1));
+  }
+  to {
+    opacity: var(--motion-fade-to);
+    transform: translateX(0);
+  }
+}
+
+@keyframes apx-reveal-right {
+  from {
+    opacity: var(--motion-fade-from);
+    transform: translateX(var(--motion-reveal-x));
+  }
+  to {
+    opacity: var(--motion-fade-to);
+    transform: translateX(0);
+  }
+}
+
+@keyframes apx-reveal-scale {
+  from {
+    opacity: var(--motion-fade-from);
+    transform: translateY(0.7rem) scale(0.98);
+  }
+  to {
+    opacity: var(--motion-fade-to);
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -106,7 +146,7 @@
 @keyframes apx-page-enter {
   from {
     opacity: 0;
-    transform: translateY(0.6rem);
+    transform: translateY(0.45rem);
   }
   to {
     opacity: 1;
@@ -128,7 +168,7 @@
 @keyframes apx-hero-rise {
   from {
     opacity: 0;
-    transform: translateY(1.4rem);
+    transform: translateY(0.85rem);
   }
   to {
     opacity: 1;
@@ -139,13 +179,11 @@
 @keyframes apx-hero-mark {
   from {
     opacity: 0;
-    transform: translateY(1.6rem);
-    letter-spacing: 0.14em;
+    transform: translateY(0.7rem);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-    letter-spacing: 0.06em;
   }
 }
 
@@ -166,24 +204,24 @@
   }
   50% {
     opacity: 1;
-    transform: translateY(0.4rem);
+    transform: translateY(0.35rem);
   }
 }
 
 .reveal-up {
-  animation: apx-reveal-up var(--motion-reveal-duration) var(--ease-standard) both;
+  animation: apx-reveal-up var(--motion-reveal-duration) var(--motion-ease-out) both;
 }
 
 .fade-in {
-  animation: apx-fade-in var(--duration-base) var(--ease-standard) both;
+  animation: apx-fade-in var(--duration-base) var(--motion-ease-out) both;
 }
 
 .page-enter {
-  animation: apx-page-enter 0.55s var(--ease-standard) both;
+  animation: apx-page-enter 0.5s var(--motion-ease-out) both;
 }
 
 .scale-in {
-  animation: apx-scale-in var(--motion-reveal-duration) var(--ease-standard) both;
+  animation: apx-scale-in var(--motion-reveal-duration) var(--motion-ease-out) both;
 }
 
 .reveal {
@@ -191,9 +229,41 @@
   transform: translateY(var(--motion-reveal-y));
 }
 
+.reveal--left {
+  transform: translateX(calc(var(--motion-reveal-x) * -1));
+}
+
+.reveal--right {
+  transform: translateX(var(--motion-reveal-x));
+}
+
+.reveal--scale {
+  transform: translateY(0.7rem) scale(0.98);
+}
+
+.reveal--fade {
+  transform: none;
+}
+
 .reveal-in {
-  animation: apx-reveal-up var(--motion-reveal-duration) var(--ease-standard) both;
+  animation: apx-reveal-up var(--motion-reveal-duration) var(--motion-ease-out) both;
   animation-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal--left.reveal-in {
+  animation-name: apx-reveal-left;
+}
+
+.reveal--right.reveal-in {
+  animation-name: apx-reveal-right;
+}
+
+.reveal--scale.reveal-in {
+  animation-name: apx-reveal-scale;
+}
+
+.reveal--fade.reveal-in {
+  animation-name: apx-fade-in;
 }
 
 .stagger > * {
@@ -201,8 +271,40 @@
   transform: translateY(var(--motion-reveal-y));
 }
 
+.stagger--left > * {
+  transform: translateX(calc(var(--motion-reveal-x) * -1));
+}
+
+.stagger--right > * {
+  transform: translateX(var(--motion-reveal-x));
+}
+
+.stagger--scale > * {
+  transform: translateY(0.7rem) scale(0.98);
+}
+
+.stagger--fade > * {
+  transform: none;
+}
+
 .stagger-in > * {
-  animation: apx-reveal-up var(--motion-reveal-duration) var(--ease-standard) both;
+  animation: apx-reveal-up var(--motion-reveal-duration) var(--motion-ease-out) both;
+}
+
+.stagger--left.stagger-in > * {
+  animation-name: apx-reveal-left;
+}
+
+.stagger--right.stagger-in > * {
+  animation-name: apx-reveal-right;
+}
+
+.stagger--scale.stagger-in > * {
+  animation-name: apx-reveal-scale;
+}
+
+.stagger--fade.stagger-in > * {
+  animation-name: apx-fade-in;
 }
 
 .stagger-in > *:nth-child(1) {
@@ -242,31 +344,39 @@
 
 .reveal-in .accent-rule,
 .stagger-in .accent-rule {
-  animation: apx-rule-draw 0.7s var(--motion-ease-out) 120ms both;
+  animation: apx-rule-draw 0.65s var(--motion-ease-out) 100ms both;
 }
 
-/* Hero staggered entrance (load-time, once) */
-.hero-enter > * {
+/* Hero staggered entrance (load-time, once) — brand → eyebrow → heading → copy → CTA */
+.hero-step {
   opacity: 0;
-  animation: apx-hero-rise 0.9s var(--motion-ease-out) both;
+  animation: apx-hero-rise 0.75s var(--motion-ease-out) both;
 }
 
-.hero-enter > *:nth-child(1) {
+.hero-step--brand {
   animation-name: apx-hero-mark;
-  animation-duration: 1.05s;
-  animation-delay: 80ms;
+  animation-duration: 0.8s;
+  animation-delay: 40ms;
 }
-.hero-enter > *:nth-child(2) {
-  animation-delay: 200ms;
+
+.hero-step--eyebrow {
+  animation-delay: 140ms;
 }
-.hero-enter > *:nth-child(3) {
-  animation-delay: 320ms;
+
+.hero-step--headline {
+  animation-delay: 240ms;
 }
-.hero-enter > *:nth-child(4) {
-  animation-delay: 460ms;
+
+.hero-step--copy {
+  animation-delay: 360ms;
 }
-.hero-enter > *:nth-child(5) {
-  animation-delay: 600ms;
+
+.hero-step--actions {
+  animation-delay: 480ms;
+}
+
+.hero-step--cue {
+  animation-delay: 620ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -282,7 +392,7 @@
   .scale-in,
   .reveal-in,
   .stagger-in > *,
-  .hero-enter > *,
+  .hero-step,
   .reveal-in .accent-rule,
   .stagger-in .accent-rule {
     animation: none;
@@ -290,7 +400,7 @@
 
   .reveal,
   .stagger > *,
-  .hero-enter > * {
+  .hero-step {
     opacity: 1;
     transform: none;
   }

@@ -1,7 +1,7 @@
 import { cx } from "@/lib/utils";
 import { Container } from "@/components/layout/Container";
 import { Heading } from "@/components/ui/Heading";
-import { Reveal } from "@/components/motion/Reveal";
+import { Reveal, Stagger } from "@/components/motion/Reveal";
 import styles from "./PageHero.module.css";
 
 type PageHeroProps = {
@@ -34,9 +34,10 @@ export function PageHero({
         tone === "inverse" && styles.inverse,
       )}
       aria-labelledby={headingId}
+      data-scroll-sentinel
     >
       <Container className={styles.inner}>
-        <Reveal className={styles.copy}>
+        <Stagger className={styles.copy}>
           {eyebrow ? (
             <p className={`text-caption ${styles.eyebrow}`}>{eyebrow}</p>
           ) : null}
@@ -46,9 +47,9 @@ export function PageHero({
           </Heading>
           <p className={`text-lead ${styles.description}`}>{description}</p>
           {actions ? <div className={styles.actions}>{actions}</div> : null}
-        </Reveal>
+        </Stagger>
         {children ? (
-          <Reveal delay={120} className={styles.aside}>
+          <Reveal delay={140} variant="scale" className={styles.aside}>
             {children}
           </Reveal>
         ) : null}
