@@ -11,7 +11,7 @@ const basePath = isGithubPages ? "/Applied-solutions-eXperts" : "";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
-  output: "export",
+
   ...(basePath ? { basePath } : {}),
   images: {
     // Required for `output: "export"` (no Image Optimization API on static hosts).
